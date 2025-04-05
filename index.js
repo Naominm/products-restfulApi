@@ -13,6 +13,9 @@ res.send("Getting a specific product")
 app.post("/products" ,(req,res)=>{
 res.send("Creating a product")
 })
+app.patch("/products/:productId",(req,res)=>{
+res.send("Updating a Product")
+})
 let port= process.env.PORT || 4000;
 
 app.listen(port,()=>{
