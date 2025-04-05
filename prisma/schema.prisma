@@ -19,7 +19,7 @@ model Products{
   productDescription String
   unitsLeft Int
   pricePerUnit String
-  isOnOffer Boolean
+  isOnOffer Boolean @default(false)
 
   @@map("products_table")
 }
