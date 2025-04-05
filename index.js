@@ -16,6 +16,9 @@ res.send("Creating a product")
 app.patch("/products/:productId",(req,res)=>{
 res.send("Updating a Product")
 })
+app.delete("/products/:productId",(req ,res)=>{
+    res.send("Deleting a product")
+})
 let port= process.env.PORT || 4000;
 
 app.listen(port,()=>{
