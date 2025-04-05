@@ -22,8 +22,32 @@ app.get("/products", async(req, res) =>{
     }
 })
 
-app.get("/products/:productsId" ,(req ,res)=>{
-res.send("Getting a specific product")
+app.get("/products/:productsId" , async(req ,res)=>{
+    const {productsId}=req.params
+try {
+    const product=await client.products.findFirst({
+   where:{
+    id:productsId
+   }
+    })
+    if(!product){
+        res.status(404).json({
+          status:"Error",
+          message:"Product Not Found"  
+        })
+    }
+    res.status(200).json({
+        status:"Success",
+        data:product
+    })
+ 
+} catch (e) {
+    res.status(500).json({
+        status:"Error",
+        message:"something went wrong"
+    })
+    
+}
 })
 
 app.post("/products" ,[validateProducts] , async (req,res)=>{
