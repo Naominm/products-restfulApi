@@ -6,6 +6,10 @@ app.get("/products", (req, res) =>{
     res.send("Getting all products")
 })
 
+app.get("/products/:productsId" ,(req ,res)=>{
+res.send("Getting a specific product")
+})
+
 let port= process.env.PORT || 4000;
 
 app.listen(port,()=>{
