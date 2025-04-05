@@ -10,6 +10,9 @@ app.get("/products/:productsId" ,(req ,res)=>{
 res.send("Getting a specific product")
 })
 
+app.post("/products" ,(req,res)=>{
+res.send("Creating a product")
+})
 let port= process.env.PORT || 4000;
 
 app.listen(port,()=>{
