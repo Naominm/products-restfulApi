@@ -6,8 +6,20 @@ const app = express();
 app.use(express.json());
 const client=new PrismaClient();
 
-app.get("/products", (req, res) =>{
-    res.send("Getting all products")
+app.get("/products", async(req, res) =>{
+    try {
+        const products= await client.products.findMany();
+        res.status(200).json({
+            status:"Success",
+            message:"Successfully fetched products",
+            data:products
+        })
+    } catch (e) {
+       res.status(500).json({
+        status:"Error",
+        message:"Something went wrong. Please try again"
+       }) 
+    }
 })
 
 app.get("/products/:productsId" ,(req ,res)=>{
