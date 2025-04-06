@@ -1,26 +1,15 @@
 import express from "express";
 import { PrismaClient } from "@prisma/client";
+import productsRouter from "./routes/produtsRouter.js"
 import validateProducts from "./middleware/validateProducts.js";
 
 const app = express();
-app.use(express.json());
 const client=new PrismaClient();
 
-app.get("/products", async(req, res) =>{
-    try {
-        const products= await client.products.findMany();
-        res.status(200).json({
-            status:"Success",
-            message:"Successfully fetched products",
-            data:products
-        })
-    } catch (e) {
-       res.status(500).json({
-        status:"Error",
-        message:"Something went wrong. Please try again"
-       }) 
-    }
-})
+app.use(express.json());
+app.use('/products',productsRouter)
+
+app.get("/products", )
 
 app.get("/products/:productsId" , async(req ,res)=>{
     const {productsId}=req.params
@@ -105,8 +94,25 @@ try {
     
 }
 })
-app.delete("/products/:productId",(req ,res)=>{
-    res.send("Deleting a product")
+app.delete("/products/:productsId", async(req ,res)=>{
+    const {productsId}=req.params;
+    try {
+        await client.products.delete({
+            where:{
+                id:productsId
+            }
+        })
+        res.status(200).json({
+            status:"Success",
+            message:"Successfully deleted Product"
+        })
+    } catch (e) {
+        res.status(500).json({
+            status:"Error",
+            message:"Somethig went wrong"
+        })
+        
+    }
 })
 let port= process.env.PORT || 4000;
 
