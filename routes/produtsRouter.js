@@ -113,5 +113,27 @@ const client=new PrismaClient();
     }
     }
  )
+ .delete(
+    async(req ,res)=>{
+        const {productsId}=req.params;
+        try {
+            await client.products.delete({
+                where:{
+                    id:productsId
+                }
+            })
+            res.status(200).json({
+                status:"Success",
+                message:"Successfully deleted Product"
+            })
+        } catch (e) {
+            res.status(500).json({
+                status:"Error",
+                message:"Something went wrong"
+            })
+            
+        }
+    }
+ )
 
  export default router;
