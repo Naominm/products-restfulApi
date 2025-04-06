@@ -128,3 +128,23 @@ export const deleteProduct = async (req, res) => {
     });
   }
 };
+
+export const productOnOffer = async (_req, res) => {
+  try {
+    const productsOnOffer = await client.products.findMany({
+      where: {
+        isOnOffer: true,
+      },
+    });
+    res.status(200).json({
+      status: "Success",
+      message: "Successfully fetched products that are onOffer",
+      data: productsOnOffer,
+    });
+  } catch (e) {
+    res.status(500).json({
+      status: "Error",
+      message: "Something went wrong",
+    });
+  }
+};
