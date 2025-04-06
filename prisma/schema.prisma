@@ -13,13 +13,13 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Products{
-  id String @id @default(uuid())
-  productTitle String
+model Products {
+  id                 String  @id @default(uuid())
+  productTitle       String
   productDescription String
-  unitsLeft Int
-  pricePerUnit String
-  isOnOffer Boolean @default(false)
+  unitsLeft          Int
+  pricePerUnit       String
+  isOnOffer          Boolean @default(false)
 
   @@map("products_table")
 }
