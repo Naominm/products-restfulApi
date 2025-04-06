@@ -74,8 +74,36 @@ try {
     })
 }
 })
-app.patch("/products/:productId",(req,res)=>{
-res.send("Updating a Product")
+app.patch("/products/:productsId", async(req,res)=>{
+
+    const {productsId}=req.params
+
+    const{productTitle,productDescription,pricePerUnit,unitsLeft,isOnOffer}=req.body
+try {
+    const updatedProduct=await client.products.update({
+        where:{
+            id:productsId
+        },
+        data:{
+            productTitle:productTitle&&productTitle,
+            productDescription:productDescription && productDescription,
+            pricePerUnit:pricePerUnit&&pricePerUnit,
+            unitsLeft:unitsLeft&&unitsLeft,
+            isOnOffer:isOnOffer&&isOnOffer,
+        }
+    })
+    res.status(200).json({
+        status:"Success",
+        message:"Product Updated successfully",
+        data:updatedProduct
+    })
+} catch (e) {
+    res.status(500).json({
+        status:"Error",
+        message:"something went wrong"
+    })
+    
+}
 })
 app.delete("/products/:productId",(req ,res)=>{
     res.send("Deleting a product")
